@@ -53,7 +53,7 @@ def ytsearch(query):
 
 
 async def ytdl(format: str, link: str):
-    stdout, stderr = await bash(f'youtube-dl -g -f "{format}" {link}')
+    stdout, stderr = await bash(f'yt-dlp -g -f "{format}" {link}')
     if stdout:
         return 1, stdout.split("\n")[0]
     return 0, stderr
@@ -280,7 +280,7 @@ async def play(c: Client, m: Message):
                 gcname = m.chat.title
                 ctitle = await CHAT_TITLE(gcname)
                 image = await generate_cover(thumbnail, title, userid, ctitle)
-                format = "bestaudio"
+                format = "bestaudio/best"
                 abhi, ytlink = await ytdl(format, url)
                 if abhi == 0:
                     await suhu.edit(f"💬 yt-dl issues detected\n\n» `{ytlink}`")
